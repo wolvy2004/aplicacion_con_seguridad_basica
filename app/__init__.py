@@ -11,4 +11,5 @@ def create_app() -> Flask:
     api_bp.register_blueprint(materias_bp)
     api_bp.register_blueprint(estudiantes_bp)
     app.register_blueprint(api_bp)
+    
     return app
