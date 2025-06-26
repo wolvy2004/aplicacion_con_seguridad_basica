@@ -1,5 +1,6 @@
 from .marca_controller import MarcaController
 from flask import jsonify, request, Blueprint
+from flask_jwt_extended import jwt_required
 
 marca_bp=Blueprint("marca", __name__)
 
@@ -26,6 +27,7 @@ def get_one(id):
     except Exception as exc:
          return jsonify({'mensaje': f" error : {str(exc)}"}), 500
 @marca_bp.route("/marcas/", methods=["POST"])
+@jwt_required()
 def crear():
     try:
         data = request.get_json()
@@ -41,6 +43,7 @@ def crear():
          return jsonify({'mensaje': f" error : {str(exc)}"}), 500
     
 @marca_bp.route("/marcas/<int:id>", methods=["PUT"])
+@jwt_required()
 def modificar(id):
     try:
         data = request.get_json()
@@ -55,6 +58,7 @@ def modificar(id):
          return jsonify({'mensaje': f" error : {str(exc)}"}), 500
 
 @marca_bp.route("/marcas/<int:id>", methods=["DELETE"])
+@jwt_required()
 def eliminar(id):
     try:
         result = MarcaController.eliminar(id)
